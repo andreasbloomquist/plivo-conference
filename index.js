@@ -33,7 +33,8 @@ app.post("/conference", function (req, res){
     startConferenceOnEnter: true,
     endConferenceOnExit: true
   })
-  res.sendStatus(200);
+  res.set({'Content-Type': 'text/xml'});
+  res.end(response.toXML());
 });
 
 app.post('/call', function (req, res){
