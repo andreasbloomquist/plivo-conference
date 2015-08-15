@@ -11,7 +11,7 @@ var views = path.join(__dirname, "views");
 
 var plivoNumber = '13306807797';
 var conferenceUrl = 'https://api.plivo.com/v1/Account/' + process.env.PLIVO_ID + '/Conference';
-var answerUrl = 'https://agile-hollows-3981.herokuapp.com/conference/answer';
+var answerUrl = 'https://agile-hollows-3981.herokuapp.com/conference';
 
 var api = plivo.RestAPI({
   authId: process.env.PLIVO_ID,
