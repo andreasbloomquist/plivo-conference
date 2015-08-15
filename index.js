@@ -11,8 +11,12 @@ var views = path.join(__dirname, "views");
 
 var plivoNumber = '13306807797';
 var conferenceUrl = 'https://api.plivo.com/v1/Account/' + process.env.PLIVO_ID + '/Conference';
+var answerUrl = 'https://agile-hollows-3981.herokuapp.com/conference/answer';
 
-console.log(plivo.Response());
+var api = plivo.RestAPI({
+  authId: process.env.PLIVO_ID,
+  authToken: process.env.PLIVO_TOKEN
+});
 
 app = express();
 
@@ -23,16 +27,30 @@ app.get("/", function (req, res){
   res.sendFile(homePath);
 });
 
-app.post("/conference/response", function (req, res){
-  var numberOne = req.body.call.numberOne;
-  var numberTwo = req.body.call.numberTwo;
-
-  console.log(numberOne, numberTwo);
+app.post("/conference", function (req, res){
+  var response = plivo.Response().addConference('talk2meconf',{
+    enterSound: "Welcome to the conference",
+    startConferenceOnEnter: true,
+    endConferenceOnExit: true
+  })
   res.sendStatus(200);
 });
 
-app.post('/conference/call', function (req, res){
+app.post('/call', function (req, res){
+  var numbers = [];
+  numbers.push(req.body.call.numberOne, req.body.call.numberTwo);
+  
+  var callParams = {
+    "from": plivoNumber,
+    "answer_url": answerUrl
+  }
 
+  for(var i=0; i < numbers.length; i++){
+    callParams["to"] = numbers[i];
+    // Add callback for status
+    api.make_call(callParams);
+  }
+  res.sendStatus(200);
 });
 
 app.listen(process.env.PORT || 3000, function(){
