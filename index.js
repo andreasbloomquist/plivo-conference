@@ -34,9 +34,14 @@ app.post("/conference", function (req, res){
     endConferenceOnExit: true
   })
   res.set({'Content-Type': 'text/xml'});
-  res.send(response.toXML());
-  console.log(res);
+  res.end(response.toXML());
 });
+
+console.log(plivo.Response().addConference('talk2meconf',{
+    enterSound: "Welcome to the conference",
+    startConferenceOnEnter: true,
+    endConferenceOnExit: true
+  }).toXML())
 
 app.post('/call', function (req, res){
   var numbers = [];
