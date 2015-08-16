@@ -34,7 +34,8 @@ app.post("/conference", function (req, res){
     endConferenceOnExit: true
   })
   res.set({'Content-Type': 'text/xml'});
-  res.end(response.toXML());
+  res.send(response.toXML());
+  console.log(res);
 });
 
 app.post('/call', function (req, res){
@@ -43,14 +44,18 @@ app.post('/call', function (req, res){
   
   var callParams = {
     "from": plivoNumber,
-    "answer_url": answerUrl
+    "answer_url": answerUrl,
   }
+  
+  console.log(numbers)
 
   for(var i=0; i < numbers.length; i++){
     callParams["to"] = numbers[i];
+    console.log('calling ', callParams['to']);
     // Add callback for status
     api.make_call(callParams);
   }
+
   res.sendStatus(200);
 });
 
