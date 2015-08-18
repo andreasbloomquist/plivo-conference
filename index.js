@@ -55,7 +55,7 @@ app.post('/call', function (req, res){
     callParams["to"] = numbers[i];
     console.log('calling ', callParams['to']);
     // Add callback for status
-    api.make_call(callParams);
+      api.make_call(callParams);
   }
 
   res.sendStatus(200);
