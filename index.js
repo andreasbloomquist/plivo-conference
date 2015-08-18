@@ -2,7 +2,8 @@
 var express = require("express"),
   path = require("path"),
   bodyParser = require("body-parser"),
-  plivo = require("plivo");
+  plivo = require("plivo"),
+  ngrok = require('ngrok');
 
 // Load environment variables
 require('dotenv').load();
@@ -27,21 +28,20 @@ app.get("/", function (req, res){
   res.sendFile(homePath);
 });
 
-app.post("/conference", function (req, res){
-  var response = plivo.Response().addConference('talk2meconf',{
-    enterSound: "Welcome to the conference",
-    startConferenceOnEnter: true,
-    endConferenceOnExit: true
-  })
+app.get("/conference", function (req, res){
+  var response = plivo.Response()
+
+  response.addSpeak("hi, and welcome to my conference")
+
+  response.addConference('talk2meconf',{
+    startConferenceOnEnter: true
+  });
+
   res.set({'Content-Type': 'text/xml'});
   res.end(response.toXML());
+  console.log(res);
 });
 
-console.log(plivo.Response().addConference('talk2meconf',{
-    enterSound: "Welcome to the conference",
-    startConferenceOnEnter: true,
-    endConferenceOnExit: true
-  }).toXML())
 
 app.post('/call', function (req, res){
   var numbers = [];
@@ -63,6 +63,12 @@ app.post('/call', function (req, res){
 
   res.sendStatus(200);
 });
+
+ngrok.once('connect', function (url) {
+    console.log('got a tunnel url', url);
+});
+ 
+ngrok.connect(3000);
 
 app.listen(process.env.PORT || 3000, function(){
   console.log("Up and running! Check localhost:3000");
