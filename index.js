@@ -2,11 +2,10 @@
 var express = require("express"),
   path = require("path"),
   bodyParser = require("body-parser"),
-  plivo = require("plivo"),
-  ngrok = require('ngrok');
+  plivo = require("plivo");
 
 // Load environment variables
-require('dotenv').load();
+// require('dotenv').load();
 
 var views = path.join(__dirname, "views");
 
@@ -64,11 +63,11 @@ app.post('/call', function (req, res){
   res.sendStatus(200);
 });
 
-ngrok.once('connect', function (url) {
-    console.log('got a tunnel url', url);
-});
+// ngrok.once('connect', function (url) {
+//     console.log('got a tunnel url', url);
+// });
  
-ngrok.connect(3000);
+// ngrok.connect(3000);
 
 app.listen(process.env.PORT || 3000, function(){
   console.log("Up and running! Check localhost:3000");
