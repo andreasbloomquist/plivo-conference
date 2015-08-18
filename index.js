@@ -29,7 +29,7 @@ app.get("/", function (req, res){
   res.sendFile(homePath);
 });
 
-app.get("/conference", function (req, res){
+app.post("/conference", function (req, res){
   var response = plivo.Response()
 
   response.addSpeak("hi, and welcome to my conference")
@@ -40,7 +40,7 @@ app.get("/conference", function (req, res){
 
   res.set({'Content-Type': 'text/xml'});
   res.end(response.toXML());
-  console.log(res);
+  console.log(response.toXML());
 });
 
 
