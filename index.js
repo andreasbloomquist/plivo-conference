@@ -57,8 +57,8 @@ app.post('/call', function (req, res){
     // Add callback for status
       api.make_call(callParams);
   }
-
-  res.sendStatus(200);
+  var conferencePath = path.join(views, 'conference.html');
+  res.sendFile(conferencePath);
 });
 
 app.listen(process.env.PORT || 3000, function(){

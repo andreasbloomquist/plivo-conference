@@ -7,4 +7,5 @@ $( function() {
                            else
                              $("button").prop("disabled", true); // disable the submit button if invalid phone number
                          });
+
 });
