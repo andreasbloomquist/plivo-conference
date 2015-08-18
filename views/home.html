@@ -4,15 +4,34 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Plivo</title>
-  <link rel="stylesheet" href="">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+  <script type="text/javascript" src=
+  "javascripts/jquery.formance.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/foundation.min.css">
+  <link rel="stylesheet" type="text/css" href="stylesheets/app.css">
+  <script type="text/javascript" src="javascripts/app.js"></script>
 </head>
 <body>
-  <h1>Hi plivo!</h1>
-
-  <form action="/call" method="POST" accept-charset="utf-8" name="conference">
-    <input type="tel" name="call[numberOne]">
-    <input type="tel" name="call[numberTwo]">
-    <button>Call!</button>
-  </form>
+  <div class="row">
+    <div class="small-10 small-centered columns">
+      <h1 class="center">Welcome to my conferencing app!</h1>
+      <p class="center">To get started enter two phone numbers below beginning with the area code. Clicking 'Call' will call both numbers, and upon answering the numbers will be bridged together via a conference line.</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="medium-8 medium-centered columns">
+      <form action="/call" method="POST" accept-charset="utf-8" name="conference">
+        <div class="medium-6 columns">
+          <label class="" for="inputOne">Number 1</label>
+          <input class="phone_number" type="tel" id="inputOne" name="call[numberOne]"/>
+        </div>
+        <div class="medium-6 columns">
+          <label class="" for="inputTwo">Number 2</label>
+          <input class="phone_number" type="tel" id="inputTwo" name="call[numberTwo]"/>
+        </div>
+        <button>Call!</button>
+      </form>
+    </div>
+  </div>
 </body>
 </html>

@@ -4,9 +4,6 @@ var express = require("express"),
   bodyParser = require("body-parser"),
   plivo = require("plivo");
 
-// Load environment variables
-// require('dotenv').load();
-
 var views = path.join(__dirname, "views");
 
 var plivoNumber = '13306807797';
@@ -18,11 +15,11 @@ var api = plivo.RestAPI({
   authToken: process.env.PLIVO_TOKEN
 });
 
-console.log("Plivo ID", process.env.PLIVO_ID)
-
 app = express();
 
+
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.static(__dirname + '/public'));
 
 app.get("/", function (req, res){
   var homePath = path.join(views, "home.html");
@@ -32,7 +29,7 @@ app.get("/", function (req, res){
 app.post("/conference", function (req, res){
   var response = plivo.Response()
 
-  response.addSpeak("hi, and welcome to my conference")
+  response.addSpeak("Hello, and welcome to Andreas's conferencing line. You are now joining the conference.")
 
   response.addConference('talk2meconf',{
     startConferenceOnEnter: true
@@ -43,17 +40,16 @@ app.post("/conference", function (req, res){
   console.log(response.toXML());
 });
 
-
 app.post('/call', function (req, res){
   var numbers = [];
-  numbers.push(req.body.call.numberOne, req.body.call.numberTwo);
+  numbers.push('1' + req.body.call.numberOne.replace(/\D/g,''), '1' + req.body.call.numberTwo.replace(/\D/g,''));
   
+  console.log(numbers)
+
   var callParams = {
     "from": plivoNumber,
     "answer_url": answerUrl,
   }
-  
-  console.log(numbers)
 
   for(var i=0; i < numbers.length; i++){
     callParams["to"] = numbers[i];
@@ -64,12 +60,6 @@ app.post('/call', function (req, res){
 
   res.sendStatus(200);
 });
-
-// ngrok.once('connect', function (url) {
-//     console.log('got a tunnel url', url);
-// });
- 
-// ngrok.connect(3000);
 
 app.listen(process.env.PORT || 3000, function(){
   console.log("Up and running! Check localhost:3000");

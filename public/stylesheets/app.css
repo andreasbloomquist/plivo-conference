@@ -1,0 +1,24 @@
+.center {
+    text-align: center;
+}
+button {
+  display: block;
+  margin: auto;
+}
+input.phone_number {
+    border: none;
+    box-shadow: none;
+    border-bottom: 1px solid black;
+}
+form {
+    margin-top: 5rem;
+}
+button[disabled]{
+  background-color: grey;
+}
+button {
+    color: white;
+    text-align: center;
+    border: 1px solid black;
+    width: 15rem;
+}
