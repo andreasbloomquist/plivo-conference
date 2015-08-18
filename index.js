@@ -14,8 +14,8 @@ var conferenceUrl = 'https://api.plivo.com/v1/Account/' + process.env.PLIVO_ID +
 var answerUrl = 'https://agile-hollows-3981.herokuapp.com/conference';
 
 var api = plivo.RestAPI({
-  authId: process.env.PLIVO_ID,
-  authToken: process.env.PLIVO_TOKEN
+  authId: process.env.PORT.PLIVO_ID,
+  authToken: process.env.PORT.PLIVO_TOKEN
 });
 
 app = express();
