@@ -18,6 +18,8 @@ var api = plivo.RestAPI({
   authToken: process.env.PLIVO_TOKEN
 });
 
+console.log("Plivo ID", process.env.PLIVO_ID)
+
 app = express();
 
 app.use(bodyParser.urlencoded({extended: true}));
